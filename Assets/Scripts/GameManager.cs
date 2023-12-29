@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour
     private static GameManager instance = null;
 
     [SerializeField] private Image fadeImage = null;
-    private float fadeTime = 1.0f;
-    private float transitionDelay = 2.0f;
+    [SerializeField] private float fadeTime = 1.0f;
+    [SerializeField] private float transitionDelay = 1.0f;
 
     private delegate void Callback();
     [SerializeField] private bool isFading = false;
+    private string targetScene = "";
 
     public static GameManager Instance
     {
@@ -27,23 +28,33 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         GameObject prefab = Resources.Load<GameObject>("Prefabs/ScreenEffect");
         GameObject inst = Instantiate(prefab);
         fadeImage = inst.transform.GetChild(0).GetComponent<Image>();
+
+        Color newColor = fadeImage.color;
+        newColor.a = 0f;
+        fadeImage.color = newColor;
+        fadeImage.gameObject.SetActive(true);
+        fadeImage.rectTransform.sizeDelta = new Vector2(Screen.width, Screen.height);
+
+        DontDestroyOnLoad(inst);
+        DontDestroyOnLoad(gameObject);
     }
 
     /// <summary>
     /// 페이드 아웃과 함께 씬을 전환합니다.
     /// </summary>
-    /// <param name="name">전환한 씬의 이름입니다.</param>
+    /// <param name="name">전환할 씬의 이름입니다.</param>
     public void ChangeScene(string name)
     {
         if (isFading) return;
         isFading = true;
-        StartCoroutine(CFadeOut( () => {
-            SceneManager.LoadScene(name);
+
+        targetScene = name;
+        StartCoroutine(CFadeOut( () =>
+        {
+            SceneManager.LoadScene(targetScene);
             StartCoroutine(CFadeIn(null));
         }));
     }
@@ -59,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CFadeOut(Callback c)
     {
+        Debug.Log("in");
         while (fadeImage.color.a < 1.0f)
         {
             Color newColor = fadeImage.color;
@@ -66,13 +78,13 @@ public class GameManager : MonoBehaviour
             fadeImage.color = newColor;
             yield return null;
         }
-        SetPause(true);
         yield return new WaitForSecondsRealtime(transitionDelay);
-        c();
+        if (c != null) c();
     }
 
     private IEnumerator CFadeIn(Callback c)
     {
+        Debug.Log("out");
         while (fadeImage.color.a > 0)
         {
             Color newColor = fadeImage.color;
@@ -80,8 +92,7 @@ public class GameManager : MonoBehaviour
             fadeImage.color = newColor;
             yield return null;
         }
-        c();
-        SetPause(false);
+        if (c != null) c();
         isFading = false;
     }
 }
