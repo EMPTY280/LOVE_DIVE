@@ -53,4 +53,13 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = direction * playerMoveForce * Time.deltaTime;
         transform.Translate(movement);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("산타 아야해~");
+            //after the collision action add here
+        }
+    }
 }
