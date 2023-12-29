@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
     private float playerMoveForce = 3f;
     [SerializeField]
     private int healthPoint = 3;
+    [SerializeField]
+    private float invincibleDuration = 5f;
+
+    private bool isDead = false;
+    private bool isInvincible = false;
+    private float invincibleStartTime;
 
     private IInput playerInput;
     private Rigidbody rigid;
@@ -30,6 +36,7 @@ public class PlayerController : MonoBehaviour
 #endif
 
         healthPoint = 3;
+        invincibleDuration = 5f;
         rigid.useGravity = false;
     }
 
@@ -41,6 +48,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         PlayerInput();
+
+        if (isInvincible && Time.time - invincibleStartTime > invincibleDuration)
+        {
+            isInvincible = false;
+        }
     }
 
     private void PlayerInput()
@@ -60,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle") && isInvincible == false)
         {
             Debug.Log("산타 아야해~");
             //after the collision action add here
@@ -70,12 +82,16 @@ public class PlayerController : MonoBehaviour
 
     private void SantaOuch()
     {
+        isInvincible = true;
+        invincibleStartTime = Time.time;
+
         if (healthPoint > 1)
         {
             healthPoint--;
         }
         else if (healthPoint == 1 || healthPoint < 1)
         {
+            isDead = true;
             healthPoint = 0;
             GameOver();
         }
