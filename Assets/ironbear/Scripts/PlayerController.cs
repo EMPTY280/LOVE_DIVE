@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    private float playerMoveForce = 3f;
+    [SerializeField]
+    private int healthPoint = 3;
+
     private IInput playerInput;
     private Rigidbody rigid;
     private BoxCollider playerCollier;
 
-    [SerializeField]
-    private float playerMoveForce = 3f;
 
     private void Start()
     {
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
         playerInput = new DesktopInput();
 #endif
 
+        healthPoint = 3;
         rigid.useGravity = false;
     }
 
@@ -60,6 +64,26 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("산타 아야해~");
             //after the collision action add here
+            SantaOuch();
         }
+    }
+
+    private void SantaOuch()
+    {
+        if (healthPoint > 1)
+        {
+            healthPoint--;
+        }
+        else if (healthPoint == 1 || healthPoint < 1)
+        {
+            healthPoint = 0;
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        //when the game is over, this method will be called
+        Debug.Log("그후로 아이들은 크리스마스에 선물을 받지 못하였다..");
     }
 }
