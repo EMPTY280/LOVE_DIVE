@@ -7,16 +7,13 @@ public class PlayerController : MonoBehaviour
     [Header("Player Move Settings")]
     [SerializeField]
     private float playerMoveForce = 3f;
-    [SerializeField]
-    private float maxSpeed = 5f;
-    [SerializeField]
-    private float acceleration = 5f;
+
 
     [Header("The Other Settings")]
     [SerializeField]
     private int healthPoint = 3;
     [SerializeField]
-    private float invincibleDuration = 5f;
+    private float invincibleDuration = 2f;
 
     private bool isDead = false;
     private bool isInvincible = false;
@@ -44,8 +41,6 @@ public class PlayerController : MonoBehaviour
 
         healthPoint = 3;
         invincibleDuration = 5f;
-        maxSpeed = 5f;
-        acceleration = 5f;
         rigid.useGravity = false;
     }
 
