@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int healthPoint = 3;
     [SerializeField]
-    private float invincibleDuration = 2f;
+    private float invincibleDuration = 2.5f;
 
     private bool isDead = false;
     private bool isInvincible = false;
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;
         playerMoveForce = 3f;
         healthPoint = 3;
-        invincibleDuration = 5f;
+        invincibleDuration = 2.5f;
         rigid.useGravity = false;
     }
 
