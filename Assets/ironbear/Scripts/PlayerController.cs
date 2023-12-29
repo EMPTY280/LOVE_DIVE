@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Move Settings")]
     [SerializeField]
     private float playerMoveForce = 3f;
+    [SerializeField]
+    private float maxSpeed = 5f;
+    [SerializeField]
+    private float acceleration = 5f;
+
+    [Header("The Other Settings")]
     [SerializeField]
     private int healthPoint = 3;
     [SerializeField]
@@ -37,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
         healthPoint = 3;
         invincibleDuration = 5f;
+        maxSpeed = 5f;
+        acceleration = 5f;
         rigid.useGravity = false;
     }
 
@@ -61,13 +70,16 @@ public class PlayerController : MonoBehaviour
         float ver = playerInput.GetVertical();
 
         Vector3 direction = new Vector3(hor, 0f, ver).normalized;
+
         PlayerMove(direction);
     }
 
     private void PlayerMove(Vector3 direction)
     {
         Vector3 movement = direction * playerMoveForce * Time.deltaTime;
-        transform.Translate(movement);
+        //transform.Translate(movement);
+
+        rigid.AddForce(movement, ForceMode.VelocityChange);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -75,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle") && isInvincible == false)
         {
             Debug.Log("산타 아야해~");
-            //after the collision action add here
+            //after the collision action will be added here
             SantaOuch();
         }
     }

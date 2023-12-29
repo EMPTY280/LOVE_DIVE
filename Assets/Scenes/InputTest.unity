@@ -205,7 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMoveForce: 5
+  maxSpeed: 0
+  acceleration: 0
   healthPoint: 0
+  invincibleDuration: 0
 --- !u!23 &288860230
 MeshRenderer:
   m_ObjectHideFlags: 0
