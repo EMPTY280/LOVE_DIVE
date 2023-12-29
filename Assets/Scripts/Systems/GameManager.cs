@@ -8,9 +8,27 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
 
-    [SerializeField] private Image fadeImage = null;
+    private Image fadeImage = null;
     [SerializeField] private float fadeTime = 1.0f;
     [SerializeField] private float transitionDelay = 1.0f;
+
+    /// <summary>
+    /// 페이드 인/아웃이 완료되기까지의 시간입니다. (N초, 인/아웃에 각각 적용됨, 최소 0.1초)
+    /// </summary>
+    public float FadeTime
+    {
+        get { return fadeTime; }
+        set { fadeTime = Mathf.Min(0.1f, value); }
+    }
+
+    /// <summary>
+    /// 페이드 아웃 후 페이드 인이 시작되기까지의 대기 시간입니다. (N초, 최소 0초)
+    /// </summary>
+    public float TransitionDelay
+    {
+        get { return transitionDelay; }
+        set { transitionDelay = Mathf.Min(0f, value); }
+    }
 
     private delegate void Callback();
     [SerializeField] private bool isFading = false;
@@ -21,7 +39,10 @@ public class GameManager : MonoBehaviour
         get
         {
             if (instance == null)
+            {
                 instance = new GameObject().AddComponent<GameManager>();
+                instance.name = "[ GameManager ]";
+            }
             return instance;
         }
     }
@@ -70,7 +91,6 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator CFadeOut(Callback c)
     {
-        Debug.Log("in");
         while (fadeImage.color.a < 1.0f)
         {
             Color newColor = fadeImage.color;
@@ -78,13 +98,14 @@ public class GameManager : MonoBehaviour
             fadeImage.color = newColor;
             yield return null;
         }
+        SetPause(true);
         yield return new WaitForSecondsRealtime(transitionDelay);
         if (c != null) c();
     }
 
     private IEnumerator CFadeIn(Callback c)
     {
-        Debug.Log("out");
+        SetPause(false);
         while (fadeImage.color.a > 0)
         {
             Color newColor = fadeImage.color;
