@@ -75,6 +75,10 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(hor, ver, 0f).normalized;
 
         PlayerMove(direction);
+
+        //left and down are negative and right and up are positive
+        Debug.Log(hor);
+        Debug.Log(ver);
     }
 
     private void PlayerMove(Vector3 direction)
