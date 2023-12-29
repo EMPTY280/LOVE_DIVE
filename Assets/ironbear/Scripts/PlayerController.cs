@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     private IInput playerInput;
     private Rigidbody rigid;
-    private BoxCollider playerCollier;
+    private Collider playerCollier;
 
 
     private void Start()
@@ -32,13 +32,13 @@ public class PlayerController : MonoBehaviour
         }
         if(playerCollier==null)
         {
-            playerCollier = GetComponent<BoxCollider>();
+            playerCollier = GetComponent<Collider>();
         }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
         playerInput = new DesktopInput();
 #endif
-
+        playerMoveForce = 3f;
         healthPoint = 3;
         invincibleDuration = 5f;
         rigid.useGravity = false;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         float hor = playerInput.GetHorizontal();
         float ver = playerInput.GetVertical();
 
-        Vector3 direction = new Vector3(hor, 0f, ver).normalized;
+        Vector3 direction = new Vector3(hor, ver, 0f).normalized;
 
         PlayerMove(direction);
     }
