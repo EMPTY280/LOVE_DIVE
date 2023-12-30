@@ -573,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiAnimator: {fileID: 1789010149}
   santaAnimator: {fileID: 1339410338}
+  camera: {fileID: 1666178481}
 --- !u!1 &774567569
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23568ede772c16744aada879e55e5fd1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.47
+      value: 30.41
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23568ede772c16744aada879e55e5fd1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6082,7 +6083,7 @@ Transform:
   m_GameObject: {fileID: 1666178481}
   serializedVersion: 2
   m_LocalRotation: {x: 0.023854151, y: 0.5534866, z: -0.015313019, w: 0.83237565}
-  m_LocalPosition: {x: 4.79, y: 30.8, z: -3.6}
+  m_LocalPosition: {x: 4.62, y: 30.81, z: -3.67}
   m_LocalScale: {x: 0.76893, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
