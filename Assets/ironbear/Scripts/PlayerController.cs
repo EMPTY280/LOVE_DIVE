@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int healthPoint = 3;
     [SerializeField]
-    private float invincibleDuration = 3f;
+    private float invincibleDuration = 3.5f;
 
     private bool isDead = false;
     private bool isInvincible = false;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;
         playerMoveForce = 3f;
         healthPoint = 3;
-        invincibleDuration = 3f;
+        invincibleDuration = 3.5f;
         rigid.useGravity = false;
     }
 
@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("산타 아야해~");
             //after the collision action will be added here
-            SantaOuch();
             playerAnim.SetBool("IsHit", true);
+            SantaOuch();         
         }
     }
 
@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         isInvincible = true;
         invincibleStartTime = Time.time;
+        playerAnim.SetBool("IsHit", false);
         //playerAnim.SetBool("IsHit", true);
 
         if (healthPoint > 1)
@@ -185,7 +186,6 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        playerAnim.SetBool("IsHit", false);
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(Reposition());
@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Reposition()
     {
-        
+        playerAnim.SetBool("IsReturn", true);
         Vector3 returnPos = new Vector3(0f, 0f, -4.5f);
         while (transform.position != returnPos)
         {
