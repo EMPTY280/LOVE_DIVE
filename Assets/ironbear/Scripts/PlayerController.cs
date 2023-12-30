@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private int healthPoint = 3;
 
 
-    private float invincibleDuration = 3.5f;
+    private float invincibleDuration = 6f;
     private bool isDead = false;
     private bool isInvincible = false;
     private float invincibleStartTime;
@@ -51,21 +52,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(!isInvincible)
-        {
-            PlayerInput();
-        }
+        PlayerInput();
 
-        if (isInvincible && Time.time - invincibleStartTime > invincibleDuration)
+        if (isInvincible && transform.position.z > -4f || Time.time - invincibleStartTime > invincibleDuration)
         {
             isInvincible = false;
             playerCollier.enabled = true;
-            playerAnim.SetBool("IsReturn", false);
         }
     }
 
     private void PlayerInput()
     {
+        if(isInvincible)
+        {
+            return;
+        }
+
         float hor = playerInput.GetHorizontal();
         float ver = playerInput.GetVertical();
 
@@ -96,16 +98,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle") && isInvincible == false)
         {
             //after the collision action will be added here
-            playerAnim.SetBool("IsHit", true);
+            isInvincible = true;
+            playerAnim.SetTrigger("HitmanBang");
             SantaOuch();         
         }
     }
 
     private void SantaOuch()
     {
-        isInvincible = true;
         invincibleStartTime = Time.time;
-        playerAnim.SetBool("IsHit", false);
 
         if (healthPoint > 1)
         {
@@ -130,10 +131,9 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator MoveBack()
     {
-        Vector3 initPos = transform.position;
         Vector3 targetPos = new Vector3(0f, 0f, -12f);
 
-        while(transform.position!=targetPos)
+        while (transform.position != targetPos)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 5f);
             yield return null;
@@ -142,13 +142,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Reposition()
     {
-        yield return new WaitForSeconds(2.5f);
-        playerAnim.SetBool("IsReturn", true);
+        transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+        yield return new WaitForSeconds(2.5f); //or 3seconds
 
         Vector3 returnPos = new Vector3(0f, 0f, -4.5f);
         while (transform.position != returnPos)
         {
-            transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 6f);
+            transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 5f);
             yield return null;
         }
 
