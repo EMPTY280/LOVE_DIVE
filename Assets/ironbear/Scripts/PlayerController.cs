@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         //when the game is over, this method will be called
         //Debug.Log("그후로 아이들은 크리스마스에 선물을 받지 못하였다..");
-        GameManager.Instance.ChangeScene("Result");
+        GameManager.Instance.ChangeScene("GameOver");
     }
     
     IEnumerator MoveBack()
