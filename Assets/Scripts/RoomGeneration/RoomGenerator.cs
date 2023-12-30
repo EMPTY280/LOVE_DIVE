@@ -44,6 +44,7 @@ public class RoomGenerator : MonoBehaviour
     {
         if (startRooms == null || randomRooms == null)
             enabled = false;
+        SoundManager.Instance.PlayBGM("BGM_Ingame");
         if (roomDelay > 0)
         {
             delayedRooms = new GameObject().transform;

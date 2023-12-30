@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
             GameOver();
         }
         Camera.main.GetComponent<CameraFollow>().Shake(1.5f, 0.5f);
+        SoundManager.Instance.PlaySFX("FX_Santahit_Loud");
         UIControl.Instance.UpdateHP(healthPoint);
     }
 
