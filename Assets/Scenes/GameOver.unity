@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSceneName: StartScene
-  typeStartDelay: 1.8
+  typeStartDelay: 1
   gameoverText: {fileID: 131756764}
   typeSpeed: 10
   buttonObj: {fileID: 1966734034}
