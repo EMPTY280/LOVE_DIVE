@@ -39,7 +39,7 @@ public class StartUIController : MonoBehaviour
         seq.Join(camera.transform.DOLocalMove(closeUpVec, 2.8f).SetEase(Ease.InOutQuad));
         seq.AppendCallback(() => PlayAnim());
         seq.AppendInterval(3f);
-        seq.AppendCallback(()=> GameManager.Instance.ChangeScene("DeadOutTest"));
+        seq.AppendCallback(()=> GameManager.Instance.ChangeScene("DeadOutTest2"));
         
         seq.Play();
     }
