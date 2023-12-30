@@ -18,15 +18,16 @@ public class ObstaclePath : MonoBehaviour
 
     private void Update()
     {
-        Vector3 targetPos = transform.parent.rotation * path[(currNode + 1) % path.Length] + transform.parent.position;
-        Vector3 newPos = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-        transform.position = newPos;
+        Vector3 targetPos = transform.rotation * path[(currNode + 1) % path.Length] + transform.position;
+        Transform child = transform.GetChild(0);
+        Vector3 newPos = Vector3.MoveTowards(child.position, targetPos, moveSpeed * Time.deltaTime);
+        child.position = newPos;
         if (newPos == targetPos)
         {
             currNode = (currNode + 1) % path.Length;
             if (!closedPath && currNode == path.Length - 1)
             {
-                transform.position = path[0] + transform.parent.position;
+                child.position = path[0] + transform.position;
                 currNode = 0;
             }
         }
@@ -36,7 +37,7 @@ public class ObstaclePath : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 origin = transform.parent.position;
+        Vector3 origin = transform.position;
 
         if (path.Length < 2) return;
         Gizmos.color = Color.red;
@@ -44,12 +45,12 @@ public class ObstaclePath : MonoBehaviour
 
         Vector3[] pathpos = (Vector3[])path.Clone();
         for (int i = 0; i < pathpos.Length; i++)
-            pathpos[i] = transform.parent.rotation * pathpos[i] + origin;
+            pathpos[i] = transform.rotation * pathpos[i] + origin;
 
         Gizmos.DrawLineStrip(pathpos, closedPath);
         for (int i = 0; i < path.Length; i++)
         {
-            Vector3 pos = origin + (transform.parent.rotation * path[i]);
+            Vector3 pos = origin + (transform.rotation * path[i]);
             Gizmos.DrawSphere(pos, 0.18f);
             Handles.Label(pos + Vector3.up * 0.5f, "p" + i);
         }
