@@ -174,7 +174,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uADF8\uB807\uAC8C \uD06C\uB9AC\uC2A4\uB9C8\uC2A4\uB294 \uB05D\uC774 \uB0AC\uB2E4."
+  m_Text: "\uADF8\uB807\uAC8C \uD06C\uB9AC\uC2A4\uB9C8\uC2A4\uB294 \uB05D\uC774 \uB0AC\uB2E4.\n\n\uC601   
+    \uC6D0    \uD788"
 --- !u!222 &131756765
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -199,8 +200,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 60}
+  m_AnchoredPosition: {x: 0, y: 25.26}
+  m_SizeDelta: {x: 400, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &214814494
 GameObject:
@@ -473,7 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startSceneName: StartScene
-  typeStartDelay: 1.8
+  typeStartDelay: 1
   gameoverText: {fileID: 131756764}
   typeSpeed: 10
   buttonObj: {fileID: 1966734034}
