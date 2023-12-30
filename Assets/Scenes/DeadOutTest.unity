@@ -2594,6 +2594,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2690,6 +2691,20 @@ MonoBehaviour:
   roomSize: {x: 5, y: 5, z: 5}
   noRepeat: 0
   gizmoColor: {r: 1, g: 0.16710056, b: 0, a: 1}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7707a10d8f58e94c8bd9b12d24ecff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 431125905}
+  moveMultiplier: 0.3
 --- !u!1 &1030257013
 GameObject:
   m_ObjectHideFlags: 0
