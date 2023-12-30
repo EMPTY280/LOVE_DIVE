@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOverScene : MonoBehaviour
 {
@@ -13,8 +14,7 @@ public class GameOverScene : MonoBehaviour
     [SerializeField][Min(0.01f)] private float typeSpeed = 5f;
 
     [SerializeField] private GameObject buttonObj;
-    [SerializeField] private Image buttonImg;
-    [SerializeField] private Text buttonText;
+    [SerializeField] private TMP_Text buttonText;
     [SerializeField] private float buttonFadeSpeed = 1f;
 
     private Coroutine task = null;
@@ -24,7 +24,6 @@ public class GameOverScene : MonoBehaviour
         originText = gameoverText.text;
         gameoverText.text = "";
 
-        buttonImg.color = Vector4.zero;
         buttonText.color = Vector4.zero;
         buttonObj.SetActive(false);
 
@@ -68,7 +67,6 @@ public class GameOverScene : MonoBehaviour
             Vector4 newColor = Vector4.one;
             alpha += buttonFadeSpeed * Time.deltaTime;
             newColor.w = alpha;
-            buttonImg.color = newColor;
             buttonText.color = newColor;
             yield return null;
         }
@@ -81,7 +79,6 @@ public class GameOverScene : MonoBehaviour
 
         StopCoroutine(task);
         gameoverText.text = originText;
-        buttonImg.color = Vector4.one;
         buttonText.color = Vector4.one;
         buttonObj.SetActive(true);
     }
