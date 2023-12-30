@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private bool isInvincible = false;
     private float invincibleStartTime;
-    //private float returnDuration = 3f;
-    private Vector3 startPosition;
     
     private IInput playerInput;
     private Rigidbody rigid;
@@ -46,7 +44,6 @@ public class PlayerController : MonoBehaviour
         playerInput = new DesktopInput();
 #endif
         
-        startPosition = transform.position;
         playerMoveForce = 3f;
         healthPoint = 3;
         invincibleDuration = 3.5f;
@@ -90,8 +87,6 @@ public class PlayerController : MonoBehaviour
     private void PlayerMove(Vector3 direction)
     {
         Vector3 movement = direction * playerMoveForce * Time.deltaTime;
-        //transform.Translate(movement);
-
         rigid.AddForce(movement, ForceMode.VelocityChange);
     }
 
@@ -111,21 +106,18 @@ public class PlayerController : MonoBehaviour
         isInvincible = true;
         invincibleStartTime = Time.time;
         playerAnim.SetBool("IsHit", false);
-        //playerAnim.SetBool("IsHit", true);
 
         if (healthPoint > 1)
         {
             healthPoint--;
             StartCoroutine(MoveBack());
             StartCoroutine(Reposition());
-            //HitAnimation();
         }
         else if (healthPoint == 1 || healthPoint < 1)
         {
             isDead = true;
             healthPoint = 0;
             StartCoroutine(MoveBack());
-            //HitAnimation();
             GameOver();
         }
     }
@@ -135,45 +127,6 @@ public class PlayerController : MonoBehaviour
         //when the game is over, this method will be called
         //Debug.Log("그후로 아이들은 크리스마스에 선물을 받지 못하였다..");
     }
-
-    //trash code~
-    /*
-    IEnumerator Reposition()
-    {     
-        yield return new WaitForSeconds(1f);
-        playerCollier.enabled = false;
-
-        Vector3 curPos = transform.position;
-        Vector3 targetPos = new Vector3(0, 0, -4.5f);
-        transform.position = Vector3.MoveTowards(transform.position, startPosition, playerMoveForce * Time.deltaTime);
-    }
-
-    private void HitAnimation()
-    {
-        rigid.velocity = Vector3.zero;
-
-        Vector3 curPos = transform.position;
-        Vector3 targetPos = new Vector3(0, 0, -10);
-
-        
-        float duration = 1f;
-        float elapedTime = 0f;
-
-        while (elapedTime < duration)
-        {
-            transform.position = Vector3.Lerp(curPos, targetPos, duration);
-            elapedTime += Time.deltaTime;
-        }
-
-        transform.position = targetPos;
-        
-
-        Vector3 backVec = targetPos - curPos;
-        backVec.Normalize();
-        rigid.AddForce(backVec * playerMoveForce, ForceMode.Impulse);
-        
-    }
-    */
     
     IEnumerator MoveBack()
     {
@@ -185,9 +138,6 @@ public class PlayerController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * 5f);
             yield return null;
         }
-
-        //yield return new WaitForSeconds(1f);
-        //StartCoroutine(Reposition());
     }
 
     IEnumerator Reposition()
@@ -198,8 +148,6 @@ public class PlayerController : MonoBehaviour
         Vector3 returnPos = new Vector3(0f, 0f, -4.5f);
         while (transform.position != returnPos)
         {
-            //santa reposition anim is here
-            //playerAnim.SetBool("IsReturn", true);
             transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 6f);
             yield return null;
         }
