@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             healthPoint--;
             StartCoroutine(MoveBack());
-            //StartCoroutine(Reposition());
+            StartCoroutine(Reposition());
             //HitAnimation();
         }
         else if (healthPoint == 1 || healthPoint < 1)
@@ -186,14 +186,15 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1f);
-
-        StartCoroutine(Reposition());
+        //yield return new WaitForSeconds(1f);
+        //StartCoroutine(Reposition());
     }
 
     IEnumerator Reposition()
     {
+        yield return new WaitForSeconds(2.5f);
         playerAnim.SetBool("IsReturn", true);
+
         Vector3 returnPos = new Vector3(0f, 0f, -4.5f);
         while (transform.position != returnPos)
         {
