@@ -35,6 +35,11 @@ public class UIControl : MonoBehaviour
     public void UpdateProgressBar(float value)
     {
         progressBar.fillAmount = Mathf.Clamp(value, 0.0f, 1.0f);
+
+        if (value >= 1.0f)
+        {
+            GameManager.Instance.ChangeScene("Result");
+        }
     }
 
     /// <summary>
