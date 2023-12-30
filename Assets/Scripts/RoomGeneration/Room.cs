@@ -33,6 +33,7 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         originPos = transform.position;
+        gameObject.SetActive(false);
     }
 
     public void ResetPos()
