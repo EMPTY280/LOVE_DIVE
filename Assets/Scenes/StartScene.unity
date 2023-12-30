@@ -197,8 +197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e32136686a79ee6468c4381086e1da51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1339410337}
-  toTarget: {x: 0, y: 0, z: 0}
 --- !u!108 &237214777
 Light:
   m_ObjectHideFlags: 0
@@ -285,8 +283,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 281394378}
-  - component: {fileID: 281394377}
-  - component: {fileID: 281394379}
   m_Layer: 0
   m_Name: UIPanel
   m_TagString: Untagged
@@ -294,27 +290,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &281394377
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281394376}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e20eea443fb470b41987f42faba29202, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &281394378
 Transform:
   m_ObjectHideFlags: 0
@@ -333,22 +308,6 @@ Transform:
   - {fileID: 1457296625}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &281394379
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 281394376}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 69b2b6eac4f634b428b432c8925086c0, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 69b2b6eac4f634b428b432c8925086c0, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &331461901
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +454,8 @@ GameObject:
   - component: {fileID: 669624105}
   - component: {fileID: 669624104}
   - component: {fileID: 669624103}
+  - component: {fileID: 669624107}
+  - component: {fileID: 669624108}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -586,6 +547,32 @@ RectTransform:
   m_AnchoredPosition: {x: 32.17, y: 29.957182}
   m_SizeDelta: {x: 409.64, y: 202.7138}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &669624107
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669624102}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &669624108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669624102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a42188300a176e46a83a3df501e136a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiAnimator: {fileID: 1789010149}
+  santaAnimator: {fileID: 1339410338}
 --- !u!1 &774567569
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,9 +656,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6730012}
-        m_TargetAssemblyTypeName: Title, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 669624108}
+        m_TargetAssemblyTypeName: StartUIController, Assembly-CSharp
+        m_MethodName: StartBtnActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -733,7 +720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23568ede772c16744aada879e55e5fd1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.49
+      value: 30.47
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 23568ede772c16744aada879e55e5fd1, type: 3}
       propertyPath: m_LocalPosition.z
