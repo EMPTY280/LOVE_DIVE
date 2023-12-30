@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private int healthPoint = 3;
     [SerializeField]
-    private float invincibleDuration = 2.5f;
+    private float invincibleDuration = 3f;
 
     private bool isDead = false;
     private bool isInvincible = false;
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private IInput playerInput;
     private Rigidbody rigid;
     private Collider playerCollier;
+    private Animator playerAnim;
 
 
     private void Start()
@@ -36,6 +37,10 @@ public class PlayerController : MonoBehaviour
         {
             playerCollier = GetComponent<Collider>();
         }
+        if (playerAnim == null)
+        {
+            playerAnim = GetComponent<Animator>();
+        }
 
 #if UNITY_STANDALONE || UNITY_EDITOR
         playerInput = new DesktopInput();
@@ -44,7 +49,7 @@ public class PlayerController : MonoBehaviour
         startPosition = transform.position;
         playerMoveForce = 3f;
         healthPoint = 3;
-        invincibleDuration = 2.5f;
+        invincibleDuration = 3f;
         rigid.useGravity = false;
     }
 
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             isInvincible = false;
             playerCollier.enabled = true;
+            playerAnim.SetBool("IsReturn", false);
         }
     }
 
@@ -77,8 +83,8 @@ public class PlayerController : MonoBehaviour
         PlayerMove(direction);
 
         //left and down are negative and right and up are positive
-        Debug.Log(hor);
-        Debug.Log(ver);
+        //Debug.Log(hor);
+        //Debug.Log(ver);
     }
 
     private void PlayerMove(Vector3 direction)
@@ -93,9 +99,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle") && isInvincible == false)
         {
-            Debug.Log("산타 아야해~");
+            //Debug.Log("산타 아야해~");
             //after the collision action will be added here
             SantaOuch();
+            playerAnim.SetBool("IsHit", true);
         }
     }
 
@@ -103,6 +110,7 @@ public class PlayerController : MonoBehaviour
     {
         isInvincible = true;
         invincibleStartTime = Time.time;
+        //playerAnim.SetBool("IsHit", true);
 
         if (healthPoint > 1)
         {
@@ -124,7 +132,7 @@ public class PlayerController : MonoBehaviour
     private void GameOver()
     {
         //when the game is over, this method will be called
-        Debug.Log("그후로 아이들은 크리스마스에 선물을 받지 못하였다..");
+        //Debug.Log("그후로 아이들은 크리스마스에 선물을 받지 못하였다..");
     }
 
     //trash code~
@@ -169,7 +177,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator MoveBack()
     {
         Vector3 initPos = transform.position;
-        Vector3 targetPos = new Vector3(0f, 0f, -10f);
+        Vector3 targetPos = new Vector3(0f, 0f, -12f);
 
         while(transform.position!=targetPos)
         {
@@ -177,6 +185,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
+        playerAnim.SetBool("IsHit", false);
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(Reposition());
@@ -184,10 +193,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Reposition()
     {
+        
         Vector3 returnPos = new Vector3(0f, 0f, -4.5f);
         while (transform.position != returnPos)
         {
-            transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 5f);
+            //santa reposition anim is here
+            //playerAnim.SetBool("IsReturn", true);
+            transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 6f);
             yield return null;
         }
 
