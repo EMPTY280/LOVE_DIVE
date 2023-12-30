@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
 {
+    // ------------------------------------------------------------
+    // ------------------------ [ 룸 진행 ] ------------------------
+    // ------------------------------------------------------------
     [SerializeField] [Tooltip("맵 스크롤 속도입니다.")]
     private float scrollSpeed = 2.5f;
+    [SerializeField] [Tooltip("최대 버텨야하는 시간입니다.")]
+    private float timeMax = 60f;
+    private float timeCurr = 0f;
+    [SerializeField] [Tooltip("결과 씬의 이름입니다.")]
+    private string resultSceneName = "Result";
 
     // ------------------------------------------------------------
     // ------------------------ [ 룸 배치 ] ------------------------
@@ -68,6 +76,14 @@ public class RoomGenerator : MonoBehaviour
         float deltaTime = Time.deltaTime;
         offset += deltaTime * scrollSpeed;
         float totalDist = 0.0f;
+
+        // 시간 진행
+        timeCurr += deltaTime;
+        UIControl ui = UIControl.Instance;
+        if (ui != null)
+            ui.UpdateProgressBar(timeCurr / timeMax);
+        if (timeCurr >= timeMax)
+            GameManager.Instance.ChangeScene(resultSceneName);
 
         // 리스트의 모든 현재 룸을 이동시킴.
         foreach (Room item in currentRooms)
