@@ -9,18 +9,16 @@ public class ObstaclePath : MonoBehaviour
     [SerializeField] private bool closedPath = true;
 
     [SerializeField] private float moveSpeed = 2.0f;
-    private Vector3 startPos = Vector3.one;
     private int currNode = 0;
 
     private void Awake()
     {
         if (path.Length < 2) enabled = false;
-        startPos = transform.position;
     }
 
     private void Update()
     {
-        Vector3 targetPos = path[(currNode + 1) % path.Length] + startPos;
+        Vector3 targetPos = path[(currNode + 1) % path.Length] + transform.parent.position;
         Vector3 newPos = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         transform.position = newPos;
         if (newPos == targetPos)
@@ -28,25 +26,17 @@ public class ObstaclePath : MonoBehaviour
             currNode = (currNode + 1) % path.Length;
             if (!closedPath && currNode == path.Length - 1)
             {
-                transform.position = path[0] + startPos;
+                transform.position = path[0] + transform.parent.position;
                 currNode = 0;
             }
         }
     }
 
 #if UNITY_EDITOR
-    private bool startPosInit = false;
-
-    private void Start()
-    {
-        startPosInit = true;
-    }
 
     private void OnDrawGizmos()
     {
-        Vector3 origin = transform.position;
-        if (startPosInit)
-            origin = startPos;
+        Vector3 origin = transform.parent.position;
 
         if (path.Length < 2) return;
         Gizmos.color = Color.red;
