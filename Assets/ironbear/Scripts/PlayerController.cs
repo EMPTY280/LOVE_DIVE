@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(MoveBack());
             GameOver();
         }
-
+        Camera.main.GetComponent<CameraFollow>().Shake(1.5f, 0.5f);
         UIControl.Instance.UpdateHP(healthPoint);
     }
 

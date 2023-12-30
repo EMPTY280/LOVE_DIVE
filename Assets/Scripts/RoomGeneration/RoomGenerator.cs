@@ -110,7 +110,7 @@ public class RoomGenerator : MonoBehaviour
         Room frontRoom = currentRooms[0];
 
         float zPos = frontRoom.transform.position.z;
-        float endZPos = backPos.z - frontRoom.RoomSize.z * 0.5f;
+        float endZPos = backPos.z - frontRoom.RoomSize.z;
 
         if (zPos <= endZPos)
         {
