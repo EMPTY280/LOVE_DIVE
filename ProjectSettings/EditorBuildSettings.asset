@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 0abe4f6e88103f3438a1b5eb2df85cf1
+  - enabled: 1
+    path: Assets/Scenes/DeadOutTest2.unity
+    guid: d67b6371504741b4d8edf0d441081d43
   m_configObjects: {}

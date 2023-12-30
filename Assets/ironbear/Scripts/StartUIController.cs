@@ -28,7 +28,7 @@ public class StartUIController : MonoBehaviour
         seq.Append(uiCanvasGroup.DOFade(0f, 1f).SetEase(Ease.Linear)).OnComplete(() =>
         {
             santaAnimator.SetTrigger("IsStart");
-            GameManager.Instance.ChangeScene("DeadOutTest");
+            GameManager.Instance.ChangeScene("DeadOutTest2");
         });
 
         seq.Play();
