@@ -12,12 +12,15 @@ public class PlayerController : MonoBehaviour
     [Header("The Other Settings")]
     [SerializeField]
     private int healthPoint = 3;
-    [SerializeField]
-    private float invincibleDuration = 3.5f;
 
+
+    private float invincibleDuration = 3.5f;
     private bool isDead = false;
     private bool isInvincible = false;
     private float invincibleStartTime;
+    private float maxRotation = 5f;
+    private float rotationSpeed = 30f;
+   
     
     private IInput playerInput;
     private Rigidbody rigid;
@@ -44,15 +47,6 @@ public class PlayerController : MonoBehaviour
         playerInput = new DesktopInput();
 #endif
         
-        playerMoveForce = 3f;
-        healthPoint = 3;
-        invincibleDuration = 3.5f;
-        rigid.useGravity = false;
-    }
-
-    public PlayerController(IInput input)
-    {
-        this.playerInput = input;
     }
 
     private void Update()
@@ -79,9 +73,16 @@ public class PlayerController : MonoBehaviour
 
         PlayerMove(direction);
 
-        //left and down are negative and right and up are positive
-        //Debug.Log(hor);
-        //Debug.Log(ver);
+        //z rotation
+        Vector3 newZAngle = transform.localRotation.eulerAngles;
+        newZAngle.z += hor * Time.deltaTime * rotationSpeed;
+        if (newZAngle.z > 180)
+        {
+            newZAngle.z -= 360;
+        }
+
+        newZAngle.z = Mathf.Clamp(newZAngle.z, -maxRotation, maxRotation);
+        transform.eulerAngles = newZAngle;
     }
 
     private void PlayerMove(Vector3 direction)
@@ -94,7 +95,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle") && isInvincible == false)
         {
-            //Debug.Log("산타 아야해~");
             //after the collision action will be added here
             playerAnim.SetBool("IsHit", true);
             SantaOuch();         
